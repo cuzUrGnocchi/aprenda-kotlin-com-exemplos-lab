@@ -7,7 +7,7 @@ class Usuario
 
 data class ConteudoEducacional(var nome: String, var duracao: Int = 60)
 
-data class Formacao(var nome: String, val conteudos: List<ConteudoEducacional>) {
+data class Formacao(var nome: String, var nivel: Nivel, val conteudos: List<ConteudoEducacional>) {
     private val _inscritos = mutableListOf<Usuario>()
         
     val inscritos
@@ -32,7 +32,7 @@ class TestesUsuario() {
             ConteudoEducacional("Aprendendo Kotlin na Prática em Sua Documentação Oficial")
         )
         
-        val formacao = Formacao("Desenvolvimento Backend com Kotlin", conteudos).also {
+        val formacao = Formacao("Desenvolvimento Backend com Kotlin", Nivel.BASICO, conteudos).also {
             it.matricular(usuario)
         }
         
