@@ -7,7 +7,7 @@ class Usuario(var nome: String)
 
 data class ConteudoEducacional(var nome: String, var duracao: Int = 60)
 
-class Formacao(var nome: String, var nivel: Nivel, primeirosConteudos: Set<ConteudoEducacional>) {
+class Formacao(var nome: String, var nivel: Nivel, primeirosConteudos: Set<ConteudoEducacional> = emptySet()) {
     private val _inscritos = mutableSetOf<Usuario>()
     private val _conteudos = primeirosConteudos.toMutableSet()
         
@@ -31,14 +31,10 @@ fun main() {
 
 class TestesFormacao() {
     val usuario = Usuario("João")
-        
-    val conteudos = setOf(
-        ConteudoEducacional("Aprendendo Kotlin na Prática em Sua Documentação Oficial")
-    )
     
     @Test
     fun `chamadas para o método matricular devem resultar na inclusão de um usuário`() {
-        val formacao = Formacao("Desenvolvimento Backend com Kotlin", Nivel.BASICO, conteudos).also {
+        val formacao = Formacao("Desenvolvimento Backend com Kotlin", Nivel.BASICO).also {
             it.matricular(usuario)
         }
         
@@ -47,7 +43,7 @@ class TestesFormacao() {
     
     @Test
     fun `items da lista de usuários devem ser únicos`() {
-        val formacao = Formacao("Desenvolvimento Backend com Kotlin", Nivel.BASICO, conteudos).also {
+        val formacao = Formacao("Desenvolvimento Backend com Kotlin", Nivel.BASICO).also {
             it.matricular(usuario)
             it.matricular(usuario)
         }
