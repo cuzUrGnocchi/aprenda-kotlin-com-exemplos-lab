@@ -29,11 +29,11 @@ class Formacao(var nome: String, var nivel: Nivel, primeirosConteudos: Set<Conte
 fun main() {
 }
 
-class TestesFormacao() {
-    val usuario = Usuario("João")
-    
+class TestesFormacao() {    
     @Test
     fun `chamadas para o método matricular devem resultar na inclusão de um usuário`() {
+        val usuario = Usuario("João")
+        
         val formacao = Formacao("Desenvolvimento Backend com Kotlin", Nivel.BASICO).also {
             it.matricular(usuario)
         }
@@ -42,7 +42,20 @@ class TestesFormacao() {
     }
     
     @Test
+    fun `chamadas para o método registarConteudo devem resultar na inclusão de um conteúdo`() {
+        val conteudo = ConteudoEducacional("Aprendendo Kotlin na Prática em Sua Documentação Oficial")
+        
+        val formacao = Formacao("Desenvolvimento Backend com Kotlin", Nivel.BASICO).also {
+            it.registarConteudo(conteudo)
+        }
+        
+        Assert.assertTrue(formacao.conteudos.contains(conteudo))
+    }
+    
+    @Test
     fun `items da lista de usuários devem ser únicos`() {
+        val usuario = Usuario("João")
+        
         val formacao = Formacao("Desenvolvimento Backend com Kotlin", Nivel.BASICO).also {
             it.matricular(usuario)
             it.matricular(usuario)
