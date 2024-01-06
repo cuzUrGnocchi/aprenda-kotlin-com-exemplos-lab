@@ -1,8 +1,3 @@
-/**
- * You can edit, run, and share this code.
- * play.kotlinlang.org
- */
-
 import org.junit.Test
 import org.junit.Assert
 
@@ -10,9 +5,9 @@ enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
 
 class Usuario
 
-data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
+data class ConteudoEducacional(var nome: String, var duracao: Int = 60)
 
-data class Formacao(val nome: String, val conteudos: List<ConteudoEducacional>) {
+data class Formacao(var nome: String, val conteudos: List<ConteudoEducacional>) {
     private val _inscritos = mutableListOf<Usuario>()
         
     val inscritos
