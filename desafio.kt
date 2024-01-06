@@ -7,8 +7,9 @@ class Usuario
 
 data class ConteudoEducacional(var nome: String, var duracao: Int = 60)
 
-data class Formacao(var nome: String, var nivel: Nivel, val conteudos: List<ConteudoEducacional>) {
+class Formacao(var nome: String, var nivel: Nivel, primeirosConteudos: Set<ConteudoEducacional>) {
     private val _inscritos = mutableSetOf<Usuario>()
+    private val _conteudos = primeirosConteudos.toMutableSet()
         
     val inscritos
         get() = _inscritos.toSet()
@@ -16,22 +17,27 @@ data class Formacao(var nome: String, var nivel: Nivel, val conteudos: List<Cont
     fun matricular(usuario: Usuario) {
         _inscritos.add(usuario)
     }
+    
+    val conteudos
+        get() = _conteudos.toSet()
+        
+    fun registarConteudo(conteudo: ConteudoEducacional) {
+        _conteudos.add(conteudo)
+    }
 }
 
 fun main() {
-//     TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-//     TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
 }
 
 class TestesUsuario() {
     val usuario = Usuario()
         
-    val conteudos = listOf(
+    val conteudos = setOf(
         ConteudoEducacional("Aprendendo Kotlin na Prática em Sua Documentação Oficial")
     )
     
     @Test
-    fun `chamadas para o método matricular devem resultar na inclusão de um Usuário`() {
+    fun `chamadas para o método matricular devem resultar na inclusão de um usuário`() {
         val formacao = Formacao("Desenvolvimento Backend com Kotlin", Nivel.BASICO, conteudos).also {
             it.matricular(usuario)
         }
