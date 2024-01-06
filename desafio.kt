@@ -3,7 +3,7 @@ import org.junit.Assert
 
 enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
 
-class Usuario
+class Usuario(var nome)
 
 data class ConteudoEducacional(var nome: String, var duracao: Int = 60)
 
@@ -30,7 +30,7 @@ fun main() {
 }
 
 class TestesUsuario() {
-    val usuario = Usuario()
+    val usuario = Usuario("João")
         
     val conteudos = setOf(
         ConteudoEducacional("Aprendendo Kotlin na Prática em Sua Documentação Oficial")
