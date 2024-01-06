@@ -29,7 +29,7 @@ class Formacao(var nome: String, var nivel: Nivel, primeirosConteudos: Set<Conte
 fun main() {
 }
 
-class TestesUsuario() {
+class TestesFormacao() {
     val usuario = Usuario("João")
         
     val conteudos = setOf(
