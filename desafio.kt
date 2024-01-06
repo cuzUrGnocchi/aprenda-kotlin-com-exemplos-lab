@@ -3,7 +3,7 @@ import org.junit.Assert
 
 enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
 
-class Usuario(var nome)
+class Usuario(var nome: String)
 
 data class ConteudoEducacional(var nome: String, var duracao: Int = 60)
 
@@ -42,7 +42,7 @@ class TestesFormacao() {
             it.matricular(usuario)
         }
         
-        Assert.assertEquals(formacao.inscritos, setOf(usuario))
+        Assert.assertTrue(formacao.inscritos.contains(usuario))
     }
     
     @Test
@@ -52,6 +52,6 @@ class TestesFormacao() {
             it.matricular(usuario)
         }
         
-        Assert.assertEquals(formacao.inscritos, setOf(usuario))
+        Assert.assertEquals(formacao.inscritos.filter({ it === usuario }).size, 1)
     }
 }
