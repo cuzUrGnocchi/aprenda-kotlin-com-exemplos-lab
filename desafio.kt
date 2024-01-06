@@ -8,10 +8,10 @@ class Usuario
 data class ConteudoEducacional(var nome: String, var duracao: Int = 60)
 
 data class Formacao(var nome: String, var nivel: Nivel, val conteudos: List<ConteudoEducacional>) {
-    private val _inscritos = mutableListOf<Usuario>()
+    private val _inscritos = mutableSetOf<Usuario>()
         
     val inscritos
-        get() = _inscritos.toList()
+        get() = _inscritos.toSet()
     
     fun matricular(usuario: Usuario) {
         _inscritos.add(usuario)
@@ -24,18 +24,28 @@ fun main() {
 }
 
 class TestesUsuario() {
+    val usuario = Usuario()
+        
+    val conteudos = listOf(
+        ConteudoEducacional("Aprendendo Kotlin na Prática em Sua Documentação Oficial")
+    )
+    
     @Test
     fun `chamadas para o método matricular devem resultar na inclusão de um Usuário`() {
-        val usuario = Usuario()
-        
-        val conteudos = listOf(
-            ConteudoEducacional("Aprendendo Kotlin na Prática em Sua Documentação Oficial")
-        )
-        
         val formacao = Formacao("Desenvolvimento Backend com Kotlin", Nivel.BASICO, conteudos).also {
             it.matricular(usuario)
         }
         
-        Assert.assertEquals(formacao.inscritos, listOf(usuario))
+        Assert.assertEquals(formacao.inscritos, setOf(usuario))
+    }
+    
+    @Test
+    fun `items da lista de usuários devem ser únicos`() {
+        val formacao = Formacao("Desenvolvimento Backend com Kotlin", Nivel.BASICO, conteudos).also {
+            it.matricular(usuario)
+            it.matricular(usuario)
+        }
+        
+        Assert.assertEquals(formacao.inscritos, setOf(usuario))
     }
 }
